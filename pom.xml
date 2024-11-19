@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>br.com.fiap</groupId>
+  <artifactId>ez-fastfood-authentication</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ez-fastfood-authentication</name>
+  <description>lambda authentication</description>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.1</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <project.build.sourceEncondig>UTF-8</project.build.sourceEncondig>
+    <project.reporting.outputEncondig>UTF-8</project.reporting.outputEncondig>
+  </properties>
+
+  <dependencies>
+    <!-- Spring Boot Core -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+
+    <!-- Spring Boot Testing -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- AWS Lambda -->
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-lambda-java-core</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+
+    <!-- PostgreSQL Driver -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.3.8</version>
+    </dependency>
+
+    <!-- Java JWT -->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>4.4.0</version>
+    </dependency>
+
+    <!-- Spring Boot Configuration Processor -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <build>
+   <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <!-- Spring Boot Maven Plugin -->
+     <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+              <goal>build-info</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+     
+      
+     <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
+      </plugin>
+      
+    </plugins>
+  </build>
+</project>
