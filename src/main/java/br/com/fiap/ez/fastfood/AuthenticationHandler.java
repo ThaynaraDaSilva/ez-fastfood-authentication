@@ -2,8 +2,6 @@ package br.com.fiap.ez.fastfood;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +12,13 @@ public class AuthenticationHandler implements RequestHandler<Map<String, String>
     private final TokenJWTService tokenJWTService;
 
     public AuthenticationHandler() {
-        // Inicializa o contexto do Spring Boot
-        ApplicationContext context = new AnnotationConfigApplicationContext(AuthenticationApplication.class);
-        this.userRepository = context.getBean(UserRepository.class);
-        this.tokenJWTService = context.getBean(TokenJWTService.class);
+        // Inicializa manualmente as dependências
+        this.userRepository = new UserRepository(); // Substitua pelo seu repositório real
+     // Obtém valores das variáveis de ambiente
+        String secretKey = System.getenv("JWT_SECRET_KEY");
+        long expirationTime = Long.parseLong(System.getenv("JWT_TOKEN_EXPIRATION"));
+
+        this.tokenJWTService = new TokenJWTService(secretKey, expirationTime); 
     }
 
     @Override
