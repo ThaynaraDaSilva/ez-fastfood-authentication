@@ -1,5 +1,8 @@
 HELP.md
 target/
+*.class
+*.log
+.DS_Store
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -42,3 +45,9 @@ build/
 *.log
 *.tfvars
 crash.log
+
+
+
+
+*.log
+.DS_Store
