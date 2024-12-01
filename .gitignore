@@ -45,9 +45,4 @@ build/
 *.log
 *.tfvars
 crash.log
-
-
-
-
-*.log
-.DS_Store
+.terraform.lock.hcl

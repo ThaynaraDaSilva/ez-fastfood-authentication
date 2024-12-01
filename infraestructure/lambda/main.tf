@@ -1,3 +1,4 @@
+# main.tf
 provider "aws" {
   region = var.aws_region
 }
@@ -11,8 +12,11 @@ data "aws_vpc" "selected" {
 }
 
 # Referenciando Subnets da VPC
-data "aws_subnet_ids" "selected" {
-  vpc_id = data.aws_vpc.selected.id
+data "aws_subnets" "selected" {
+ filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.selected.id]
+  }
 }
 
 # Referenciando Security Group existente
@@ -42,7 +46,7 @@ resource "aws_lambda_function" "authentication_lambda" {
   }
 
   vpc_config {
-    subnet_ids         = data.aws_subnet_ids.selected.ids
+    subnet_ids         = data.aws_subnets.selected.ids
     security_group_ids = [data.aws_security_group.selected.id]
   }
 
@@ -73,6 +77,11 @@ resource "aws_iam_role_policy_attachment" "lambda_logs_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+resource "aws_iam_role_policy_attachment" "lambda_vpc_policy" {
+  role       = aws_iam_role.lambda_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+}
+
 # API Gateway HTTP API
 resource "aws_apigatewayv2_api" "http_api" {
   name          = var.api_name
@@ -90,7 +99,7 @@ resource "aws_apigatewayv2_integration" "lambda_integration" {
 # API Gateway Route
 resource "aws_apigatewayv2_route" "auth_route" {
   api_id    = aws_apigatewayv2_api.http_api.id
-  route_key = "POST /auth"
+  route_key = "POST /auth" # Ensures the /auth path is added
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
