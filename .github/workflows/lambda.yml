@@ -3,7 +3,8 @@ name: Deploy Lambda Function
 on:
   push:
     branches:
-      - main
+      - develop
+      - feature/pipeline
 
 jobs:
   deploy:
