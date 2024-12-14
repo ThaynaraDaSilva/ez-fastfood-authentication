@@ -1,5 +1,8 @@
 HELP.md
 target/
+*.class
+*.log
+.DS_Store
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -33,3 +36,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Ignore Terraform files ###
+.terraform/
+*.tfstate
+.tfstate.
+*.backup
+*.log
+*.tfvars
+crash.log
+.terraform.lock.hcl
