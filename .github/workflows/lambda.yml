@@ -24,7 +24,7 @@ jobs:
         run: mvn clean package
 
       - name: Show JAR file
-        run: ls -lah
+        run: ls -lah ./terraform
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -45,6 +45,7 @@ jobs:
 
       - name: Deploy Lambda function
         run: |
-          cd /terraform
+          cd ./terraform
+          ls -lah
           terraform init
           terraform apply -auto-approve
