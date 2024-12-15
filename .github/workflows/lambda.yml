@@ -24,7 +24,7 @@ jobs:
         run: mvn clean package
 
       - name: Show JAR file
-        run: ls -lah target
+        run: ls -lah
 
       - name: Set up Python
         uses: actions/setup-python@v2
