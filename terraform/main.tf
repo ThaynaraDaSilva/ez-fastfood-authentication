@@ -38,8 +38,9 @@ resource "aws_lambda_function" "authentication_lambda" {
   memory_size   = var.lambda_memory_size
   timeout       = var.lambda_timeout
 
-  filename         = var.jar_path
-  source_code_hash = filebase64sha256(var.jar_path)
+  filename         = "${path.module}/target/ez-fastfood-authentication.jar"
+  source_code_hash = filebase64sha256("${path.module}/target/ez-fastfood-authentication.jar")
+
 
   environment {
     variables = var.environment_variables
