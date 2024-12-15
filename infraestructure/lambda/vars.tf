@@ -31,6 +31,7 @@ variable "lambda_timeout" {
 variable "lambda_handler" {
   description = "Handler da função Lambda"
   type        = string
+  default     = "com.example.Handler::handleRequest"
 }
 
 variable "runtime" {
@@ -41,6 +42,7 @@ variable "runtime" {
 variable "jar_path" {
   description = "Caminho do arquivo JAR a ser enviado para a Lambda"
   type        = string
+  default     = "target/ez-fastfood-authentication.jar"
 }
 
 variable "environment_variables" {
