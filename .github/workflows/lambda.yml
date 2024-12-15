@@ -36,6 +36,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Import existing IAM role
+        run: |
+          terraform init
+          terraform import aws_iam_role.lambda_execution_role lambda-execution-role || echo "IAM role already imported"
+  
       - name: Deploy Lambda function
         run: |
           ls -lah
