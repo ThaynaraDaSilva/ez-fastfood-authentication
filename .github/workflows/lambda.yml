@@ -35,4 +35,4 @@ jobs:
         run: |
           cd infraestructure/lambda
           terraform init
-          terraform apply -auto-approve -var-file="vars.tf"
+          terraform apply -auto-approve -var-file="terraform.tfvars"
