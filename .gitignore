@@ -38,11 +38,9 @@ build/
 .vscode/
 
 ### Ignore Terraform files ###
-.terraform/
 *.tfstate
 .tfstate.
 *.backup
 *.log
-*.tfvars
 crash.log
 .terraform.lock.hcl
