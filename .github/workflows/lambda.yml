@@ -45,6 +45,6 @@ jobs:
 
       - name: Deploy Lambda function
         run: |
-          cd infraestructure/lambda
+          cd /terraform
           terraform init
           terraform apply -auto-approve
