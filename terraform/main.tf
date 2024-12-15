@@ -55,7 +55,7 @@ resource "aws_lambda_function" "authentication_lambda" {
 }
 
 # IAM Role for Lambda
-resource "aws_iam_role" "new_lambda_execution_role" {
+resource "aws_iam_role" "lambda_execution_role" {
   name = "lambda-execution-role"
 
   assume_role_policy = jsonencode({

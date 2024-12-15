@@ -27,7 +27,7 @@ jobs:
         run: ls -lah ./terraform
 
       - name: Verify Build Output
-        run: ls -lah ./target
+        run: ls -lah ./terraform
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -35,15 +35,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
-      - name: Import existing IAM role
-        run: |
-          terraform init
-          terraform import aws_iam_role.lambda_execution_role lambda-execution-role || echo "IAM role already imported"
   
       - name: Deploy Lambda function
         run: |
           ls -lah
-          cd terraform
+          cd ./terraform
           terraform init
           terraform apply -auto-approve
