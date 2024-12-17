@@ -1,10 +1,10 @@
 name: Lambda Auth Function
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-      - hotfix/terraform-error
+      - develop
 
 env:
   TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
