@@ -2,73 +2,74 @@
 
 Este repositório contém a implementação de uma função Lambda para autenticação de usuários no sistema EZ-Fast-Food. A função valida credenciais de login e gera tokens JWT para acesso seguro a serviços protegidos.
 
-## Tecnologias Utilizadas
-- **Java 17**
-- **Amazon Lambda**
-- **Amazon RDS (PostgreSQL)**
-- **Biblioteca JWT (auth0)**
-- **Biblioteca Jackson para manipulação JSON**
+## Funcionalidades
+
+- Autenticação de usuários usando CPF e senha.
+- Geração de token JWT para usuários autenticados.
+- Consulta direta ao banco de dados para validação de credenciais.
 
 ## Estrutura do Projeto
-```
-br.com.fiap.ez.fastfood
-├── AuthenticationHandler.java  # Função Lambda principal
-├── TokenJWTService.java        # Serviço para geração e validação de tokens JWT
-├── User.java                   # Entidade representando um usuário
-├── UserRepository.java         # Repositório de usuários usando JDBC
-```
 
-## Configuração
-### Variáveis de Ambiente
-- **DB_URL**: URL de conexão com o banco de dados
-- **DB_USER**: Usuário do banco de dados
-- **DB_PASSWORD**: Senha do banco de dados
-- **JWT_SECRET_KEY**: Chave secreta para assinar tokens JWT
-- **JWT_TOKEN_EXPIRATION**: Tempo de expiração do token em milissegundos
+Este projeto usa uma estrutura simples devido à natureza específica da função, que se concentra exclusivamente na validação de CPF e senha para autenticar o usuário.
 
-### Banco de Dados
-A função espera uma tabela `customer` no banco de dados com as colunas:
-- `cpf` (VARCHAR)
-- `password` (VARCHAR)
+- `AuthenticationHandler.java`: Ponto de entrada da função Lambda.
+- `TokenJWTService.java`: Geração e validação de tokens JWT.
+- `UserRepository.java`: Consulta ao banco de dados.
+- `User.java`: Representação da entidade de usuário.
 
-## Deploy
-1. Compile o projeto com Maven:
-   ```sh
-   mvn clean package
-   ```
-2. Faça upload do arquivo JAR gerado para a AWS Lambda.
-3. Configure as variáveis de ambiente no console da AWS Lambda.
+## Fluxo de Autenticação
 
-## Endpoints Suportados
-- **POST /login**: Autentica o usuário e retorna um token JWT.
+1. A função Lambda recebe uma solicitação HTTP contendo um corpo JSON com `cpf` e `password`.
+2. Consulta o banco de dados para verificar se há um usuário correspondente.
+3. Se as credenciais forem válidas, um token JWT é gerado e retornado.
+4. Se as credenciais forem inválidas, uma mensagem de erro é retornada.
 
-### Exemplo de Requisição:
+## Exemplo de Solicitação
+
 ```json
 {
-  "cpf": "12345678901",
+  "cpf": "12345678900",
   "password": "senha123"
 }
 ```
 
-### Exemplo de Resposta Bem-Sucedida:
+## Exemplo de Resposta
+
+**Sucesso:**
 ```json
 {
   "message": "Authentication successful",
-  "token": "eyJhbGciOiJIUzI1NiIsIn..."
+  "token": "jwt-token-gerado"
 }
 ```
 
-### Exemplo de Erro:
+**Erro:**
 ```json
 {
   "error": "Invalid credentials"
 }
 ```
 
-## Melhoria Contínua
-- Implementar logs estruturados.
-- Adicionar suporte a múltiplos ambientes.
-- Configurar CI/CD com AWS CodePipeline.
+## Configuração de Ambiente da Lambda
+
+- `DB_URL`: URL de conexão com o banco de dados.
+- `DB_USER`: Nome de usuário do banco de dados.
+- `DB_PASSWORD`: Senha do banco de dados.
+- `JWT_SECRET_KEY`: Chave secreta para geração de tokens JWT.
+- `JWT_TOKEN_EXPIRATION`: Tempo de expiração dos tokens JWT (em milissegundos).
+
+## Tecnologias Utilizadas
+
+- AWS Lambda
+- Java 17
+- Banco de Dados PostgreSQL
+- Biblioteca JWT (Auth0)
+
+## Instruções de Implantação
+
+1. Configure as variáveis de ambiente no AWS Lambda.
+2. Implante a função usando sua ferramenta de implantação preferida.
+3. Teste a função usando um serviço de API Gateway ou diretamente no console da AWS.
 
 ## Links dos demais repositórios:
 - APIs: https://github.com/ThaynaraDaSilva/ez-fastfood-api
