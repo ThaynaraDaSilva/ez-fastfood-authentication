@@ -2,13 +2,13 @@ variable "aws_region" {
   description = "Região onde os recursos da AWS serão criados"
   default     = "us-east-1"
 }
-variable "aws_access_key" {
+variable "access_key" {
   description = "AWS Access Key ID"
   type        = string
   sensitive   = true
 }
 
-variable "aws_secret_key" {
+variable "secret_key" {
   description = "AWS Secret Access Key"
   type        = string
   sensitive   = true
