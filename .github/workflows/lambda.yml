@@ -37,15 +37,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Validate Terraform
-      run:  |
-        cd lambda
-        terraform validate
-
     - name: Init Terraform
       run:  |
         cd lambda
         terraform init
+    - name: Validate Terraform
+      run:  |
+        cd lambda
+        terraform validate
 
     - name: Plan Terraform
       run:  |
