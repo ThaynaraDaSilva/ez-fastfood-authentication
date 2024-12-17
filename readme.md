@@ -38,6 +38,8 @@ Este projeto usa uma estrutura simples devido à natureza específica da funçã
   "error": "Invalid credentials"
 }
 ```
+## Evidência da Lambda executando conforme esperado: 
+![image](https://github.com/user-attachments/assets/1664e7e1-408f-4b89-a87f-e1b8250c70d6)
 
 ## Tecnologias Utilizadas
 
