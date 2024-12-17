@@ -2,6 +2,43 @@ variable "aws_region" {
   description = "Região onde os recursos da AWS serão criados"
   default     = "us-east-1"
 }
+variable "aws_access_key" {
+  description = "AWS Access Key ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "aws_secret_key" {
+  description = "AWS Secret Access Key"
+  type        = string
+  sensitive   = true
+}
+
+
+variable "db_username" {
+  description = "The username for the database"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_password" {
+  description = "The password for the database"
+  type        = string
+  sensitive   = true
+}
+
+variable "jwt_secret_key" {
+  description = "jwt secret"
+  type        = string
+  sensitive   = true
+}
+
+variable "jwt_expiration_token" {
+  description = "jwt token"
+  type        = string
+  default     = "3600000"
+}
+
 
 variable "vpc_name" {
   description = "Nome da VPC existente"
@@ -43,10 +80,10 @@ variable "jar_path" {
   type        = string
 }
 
-variable "environment_variables" {
-  description = "Variáveis de ambiente para a função Lambda"
-  type        = map(string)
-}
+# variable "environment_variables" {
+#   description = "Variáveis de ambiente para a função Lambda"
+#   type        = map(string)
+# }
 
 variable "lambda_tags" {
   description = "Tags associadas à função Lambda"
