@@ -104,3 +104,8 @@ variable "api_name" {
   description = "Nome da API no API Gateway"
   type        = string
 }
+
+variable "lambda_role_name" {
+  description = "Nome da API no API Gateway"
+  type        = string
+}
