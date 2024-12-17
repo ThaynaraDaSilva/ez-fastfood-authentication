@@ -4,7 +4,7 @@ provider "aws" {
   secret_key              = var.secret_key
   default_tags {
     tags = {
-      Project = var.lambda_tags.environment
+      Project = var.environment
     }
   }
 }
