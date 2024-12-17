@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class UserRepository {
 
-	// Configurações de conexão via variáveis de ambiente
+	
 	private final String dbUrl = System.getenv("DB_URL");
 	private final String dbUser = System.getenv("DB_USER");
 	private final String dbPassword = System.getenv("DB_PASSWORD");
@@ -42,7 +42,7 @@ public class UserRepository {
 				}
 			}
 		} catch (Exception e) {
-			// Log do erro
+		
 			System.err.println("Error querying user by CPF: " + e.getMessage());
 			throw e;
 		}

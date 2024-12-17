@@ -1,13 +1,10 @@
 # main.tf
-provider "aws" {
-  region = var.aws_region
-}
 
 # Referenciando VPC existente
 data "aws_vpc" "selected" {
   filter {
     name   = "tag:Name"
-    values = [var.vpc_name]
+    values = ["${var.vpc_name}-${var.environment}"]
   }
 }
 
@@ -23,7 +20,7 @@ data "aws_subnets" "selected" {
 data "aws_security_group" "selected" {
   filter {
     name   = "tag:Name"
-    values = [var.security_group_name]
+    values = ["${var.security_group_name}-${var.environment}"]
   }
 
   vpc_id = data.aws_vpc.selected.id
@@ -31,7 +28,7 @@ data "aws_security_group" "selected" {
 
 # Lambda Function
 resource "aws_lambda_function" "authentication_lambda" {
-  function_name = var.lambda_function_name
+  function_name = "${var.lambda_function_name}-${var.environment}"
   runtime       = var.runtime
   role          = aws_iam_role.lambda_execution_role.arn
   handler       = var.lambda_handler
@@ -42,7 +39,14 @@ resource "aws_lambda_function" "authentication_lambda" {
   source_code_hash = filebase64sha256(var.jar_path)
 
   environment {
-    variables = var.environment_variables
+    #variables = var.environment_variables
+     variables = {
+      DB_URL                 = "jdbc:postgresql://rds-postgres-dev-nvirginia-ezfastfood.cr6w0cgk4uiy.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=ez_fastfood"
+      DB_USER                = var.db_username
+      DB_PASSWORD            = var.db_password
+      JWT_SECRET_KEY         = var.jwt_secret_key
+      JWT_TOKEN_EXPIRATION   = var.jwt_expiration_token
+    }
   }
 
   vpc_config {
@@ -50,12 +54,16 @@ resource "aws_lambda_function" "authentication_lambda" {
     security_group_ids = [data.aws_security_group.selected.id]
   }
 
-  tags = var.lambda_tags
+ tags = {
+    Name        = "${var.lambda_function_name}-${var.environment}"
+    Environment = var.environment
+    Project     = var.project
+  }
 }
 
 # IAM Role for Lambda
 resource "aws_iam_role" "lambda_execution_role" {
-  name = "lambda-execution-role"
+  name = "${var.lambda_role_name}-${var.environment}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -84,7 +92,7 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_policy" {
 
 # API Gateway HTTP API
 resource "aws_apigatewayv2_api" "http_api" {
-  name          = var.api_name
+  name          = "${var.api_name}-${var.environment}"
   protocol_type = "HTTP"
 }
 
