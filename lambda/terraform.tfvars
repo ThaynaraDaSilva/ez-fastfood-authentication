@@ -7,7 +7,7 @@ lambda_memory_size   = 512
 lambda_timeout       = 15
 lambda_handler       = "br.com.fiap.ez.fastfood.AuthenticationHandler::handleRequest"
 runtime              = "java17"
-jar_path             = "../../target/ez-fastfood-authentication.jar"
+jar_path             = "../target/ez-fastfood-authentication.jar"
 
 
 # environment_variables = {
