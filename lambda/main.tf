@@ -4,7 +4,7 @@
 data "aws_vpc" "selected" {
   filter {
     name   = "tag:Name"
-    values = ["${var.vpc_name}-${var.lambda_tags.environment}"]
+    values = ["${var.vpc_name}-${var.environment}"]
   }
 }
 
@@ -20,7 +20,7 @@ data "aws_subnets" "selected" {
 data "aws_security_group" "selected" {
   filter {
     name   = "tag:Name"
-    values = ["${var.security_group_name}-${var.lambda_tags.environment}"]
+    values = ["${var.security_group_name}-${var.environment}"]
   }
 
   vpc_id = data.aws_vpc.selected.id
@@ -28,7 +28,7 @@ data "aws_security_group" "selected" {
 
 # Lambda Function
 resource "aws_lambda_function" "authentication_lambda" {
-  function_name = "${var.lambda_function_name}-${var.lambda_tags.environment}"
+  function_name = "${var.lambda_function_name}-${var.environment}"
   runtime       = var.runtime
   role          = aws_iam_role.lambda_execution_role.arn
   handler       = var.lambda_handler
@@ -92,7 +92,7 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_policy" {
 
 # API Gateway HTTP API
 resource "aws_apigatewayv2_api" "http_api" {
-  name          = "${var.api_name}-${var.lambda_tags.environment}"
+  name          = "${var.api_name}-${var.environment}"
   protocol_type = "HTTP"
 }
 
