@@ -31,6 +31,7 @@ jobs:
 
   deploy-auth-lambda:
     name:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
