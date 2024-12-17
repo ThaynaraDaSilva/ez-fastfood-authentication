@@ -8,11 +8,6 @@ lambda_timeout       = 15
 lambda_handler       = "br.com.fiap.ez.fastfood.AuthenticationHandler::handleRequest"
 runtime              = "java17"
 jar_path             = "../target/ez-fastfood-authentication.jar"
-
-
-lambda_tags = {
-  Name         = "ez-fastfood-authentication"
-  Environment  = "dev"
-  Project      = "ez-fastfood"
-}
+environment  = "dev"
+project      = "ez-fastfood"
 

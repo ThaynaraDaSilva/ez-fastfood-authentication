@@ -85,9 +85,19 @@ variable "jar_path" {
 #   type        = map(string)
 # }
 
-variable "lambda_tags" {
-  description = "Tags associadas à função Lambda"
-  type        = map(string)
+# variable "lambda_tags" {
+#   description = "Tags associadas à função Lambda"
+#   type        = map(string)
+# }
+
+variable "environment" {
+  default = "dev"
+}
+
+variable "project" {
+  description = "Project name for tagging"
+  type        = string
+  default     = "ez-fastfood"
 }
 
 variable "api_name" {

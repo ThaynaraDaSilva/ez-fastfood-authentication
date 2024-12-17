@@ -54,7 +54,11 @@ resource "aws_lambda_function" "authentication_lambda" {
     security_group_ids = [data.aws_security_group.selected.id]
   }
 
-  tags = var.lambda_tags
+ tags = {
+    Name        = "${var.lambda_function_name}-${var.environment}"
+    Environment = var.environment
+    Project     = var.project
+  }
 }
 
 # IAM Role for Lambda
