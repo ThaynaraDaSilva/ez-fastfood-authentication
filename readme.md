@@ -61,6 +61,7 @@ OBS..: para esta primeira versão, a URL do banco de dados está definida direto
 - EKS: https://github.com/ThaynaraDaSilva/ez-fastfood-eks
 - Network: https://github.com/ThaynaraDaSilva/ez-fastfood-network
 - RDS: https://github.com/ThaynaraDaSilva/ez-fastfood-database
+- Apresentação da arquitetura: https://www.youtube.com/watch?v=MhPpoUZhlFs
 
 ## Desenvolvido por:
 @tchfer : RM357414<br>
